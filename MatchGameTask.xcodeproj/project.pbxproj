@@ -99,8 +99,9 @@
 		13DCA018266B4F8100F4AD5B /* MatchGameTask */ = {
 			isa = PBXGroup;
 			children = (
-				13DCA019266B4F8100F4AD5B /* AppDelegate.swift */,
-				13DCA01B266B4F8100F4AD5B /* SceneDelegate.swift */,
+				13DCA04E266B4FE600F4AD5B /* Helper */,
+				13DCA04D266B4FDD00F4AD5B /* Modules */,
+				13DCA04C266B4FD000F4AD5B /* App */,
 				13DCA01D266B4F8100F4AD5B /* ViewController.swift */,
 				13DCA01F266B4F8100F4AD5B /* Main.storyboard */,
 				13DCA022266B4F8300F4AD5B /* Assets.xcassets */,
@@ -126,6 +127,77 @@
 				13DCA03D266B4F8400F4AD5B /* Info.plist */,
 			);
 			path = MatchGameTaskUITests;
+			sourceTree = "<group>";
+		};
+		13DCA04C266B4FD000F4AD5B /* App */ = {
+			isa = PBXGroup;
+			children = (
+				13DCA019266B4F8100F4AD5B /* AppDelegate.swift */,
+				13DCA01B266B4F8100F4AD5B /* SceneDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		13DCA04D266B4FDD00F4AD5B /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				13DCA04F266B4FFA00F4AD5B /* Card */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		13DCA04E266B4FE600F4AD5B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		13DCA04F266B4FFA00F4AD5B /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				13DCA054266B503B00F4AD5B /* View */,
+				13DCA053266B503100F4AD5B /* Entity */,
+				13DCA052266B502600F4AD5B /* Router */,
+				13DCA051266B500800F4AD5B /* Presenter */,
+				13DCA050266B500100F4AD5B /* Protocol */,
+			);
+			path = Card;
+			sourceTree = "<group>";
+		};
+		13DCA050266B500100F4AD5B /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		13DCA051266B500800F4AD5B /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		13DCA052266B502600F4AD5B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		13DCA053266B503100F4AD5B /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		13DCA054266B503B00F4AD5B /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -22,10 +22,15 @@ class CardViewModel {
 }
 
 final class CardPresenter: ViewToPresenterCardProtocol {
-    var view: PresenterToViewCardProtocol?
+    weak var view: PresenterToViewCardProtocol?
+    var cardViewModels: [CardViewModel]?
+    var firstSelectedCard: CardViewModel?
     
     func getCards() {
         let cards = CardService.getCards(pairCount: 8)
+        let viewModels = cards.map{ CardViewModel(frontImageName: $0.frontImageName) }
+        self.cardViewModels = viewModels
+        view?.displayCards(list: viewModels)
     }
     
     func handleSelectionOfCard(at indexPath: IndexPath) {

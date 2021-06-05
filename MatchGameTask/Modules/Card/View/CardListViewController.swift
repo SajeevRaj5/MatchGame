@@ -33,13 +33,23 @@ extension CardListViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardViewCell", for: indexPath) as! CardViewCell
+        guard let currentCard = dataSource?[indexPath.row] else { return UICollectionViewCell() }
+        
+        cell.configureCell(card: currentCard)
         return cell
+    }
+}
+
+extension CardListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let count: CGFloat = 4
+        return CGSize(width: collectionView.frame.width/count - 2, height: collectionView.frame.width/count)
     }
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
     func displayCards(list: [CardViewModel]) {
-        
+        dataSource = list
     }
     
     func openCard(at indexPath: IndexPath) {

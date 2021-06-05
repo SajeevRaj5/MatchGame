@@ -66,7 +66,7 @@ extension CardListViewController: PresenterToViewCardProtocol {
     func closeCards(at indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             let cardCell = cardsCollectionView.cellForItem(at: indexPath) as? CardViewCell
-            cardCell?.close()()
+            cardCell?.close()
         }
     }
     

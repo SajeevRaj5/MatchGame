@@ -19,11 +19,14 @@ class CardListViewController: UIViewController {
     @IBOutlet weak var cardsCollectionView: UICollectionView!
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        presenter?.getCards()
+        presenter?.setup()
+    }
+    
+    @IBAction func restartButtonAction(sender: UIButton) {
+        presenter?.restartGame()
     }
 
 }
@@ -56,6 +59,19 @@ extension CardListViewController: UICollectionViewDelegate {
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
+    func updateTimer(hour: Int, minute: Int,second: Int) {
+        var timeString = "\(format(minute)):\(format(second))"
+        if hour != 0 { timeString = "\(format(hour))" + timeString }
+        timerLabel.text = "\(timeString)"
+    }
+    
+    func format(_ time: Int) -> String {
+        String(format:"%02ld",time)
+    }
+    
+    func updateScore(to score: Int) {
+        scoreLabel.text = "Score: \(score)"
+    }
     
     func displayCards(list: [CardViewModel]) {
         dataSource = list
@@ -83,3 +99,17 @@ extension CardListViewController: PresenterToViewCardProtocol {
         }
     }
 }
+
+
+ extension Date {
+    
+    func getTimeDiff(to: Date = Date()) -> (hour: Int, minute: Int, second: Int) {
+        let difference = Calendar.current.dateComponents([.hour, .minute, .second], from: self, to: to)
+        return ( getAbsoluteTime(difference.hour), getAbsoluteTime(difference.minute), getAbsoluteTime(difference.second))
+    }
+    
+    func getAbsoluteTime(_ time: Int?) -> Int {
+        guard let time = time else { return 0 }
+        return time < 0 ? 0 : time
+    }
+ }

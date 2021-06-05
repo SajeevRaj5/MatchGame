@@ -58,7 +58,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VdZ-Ig-ZeT">
-                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
+                                <rect key="frame" x="0.0" y="104" width="414" height="723"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="5Yq-kg-tmy">
                                     <size key="itemSize" width="148" height="177"/>
@@ -116,14 +116,23 @@
                                     <outlet property="delegate" destination="gal-bf-ZFa" id="11C-pf-knC"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rJN-0J-ngf">
+                                <rect key="frame" x="160" y="832" width="94" height="30"/>
+                                <state key="normal" title="Restart Game"/>
+                                <connections>
+                                    <action selector="restartButtonActionWithSender:" destination="gal-bf-ZFa" eventType="touchUpInside" id="0mk-J6-H7a"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Yme-eY-YTK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="leading" secondItem="Yme-eY-YTK" secondAttribute="leading" id="5f4-T0-bsa"/>
                             <constraint firstItem="YEG-ZU-6Jl" firstAttribute="top" secondItem="Yme-eY-YTK" secondAttribute="top" id="BWE-II-iKI"/>
-                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="bottom" secondItem="Yme-eY-YTK" secondAttribute="bottom" id="CMG-ck-DNH"/>
                             <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="trailing" secondItem="Yme-eY-YTK" secondAttribute="trailing" id="Cne-jG-l2y"/>
+                            <constraint firstItem="rJN-0J-ngf" firstAttribute="bottom" secondItem="Yme-eY-YTK" secondAttribute="bottom" id="PTE-Tm-dtl"/>
+                            <constraint firstItem="rJN-0J-ngf" firstAttribute="top" secondItem="VdZ-Ig-ZeT" secondAttribute="bottom" constant="5" id="Tl8-Sx-im1"/>
+                            <constraint firstItem="rJN-0J-ngf" firstAttribute="centerX" secondItem="BPT-oU-BmX" secondAttribute="centerX" id="UI3-Wh-O3A"/>
                             <constraint firstItem="YEG-ZU-6Jl" firstAttribute="leading" secondItem="Yme-eY-YTK" secondAttribute="leading" id="gVn-Dm-KO6"/>
                             <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="top" secondItem="YEG-ZU-6Jl" secondAttribute="bottom" id="kZR-KD-SdY"/>
                             <constraint firstItem="Yme-eY-YTK" firstAttribute="trailing" secondItem="YEG-ZU-6Jl" secondAttribute="trailing" id="v4L-s0-dff"/>

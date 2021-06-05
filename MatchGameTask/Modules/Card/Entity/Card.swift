@@ -12,7 +12,7 @@ class Card {
     var frontImageName = ""
     var isOpen = false
     var isRemoved = false
-    
+
     convenience init(title: String) {
         self.init()
         frontImageName = title

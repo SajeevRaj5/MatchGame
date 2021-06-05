@@ -11,7 +11,7 @@ extension UIStoryboard {
     enum StoryBoard: String {
         case main = "Main"
     }
-    
+
     convenience init(type: StoryBoard) {
         self.init(name: type.rawValue, bundle: nil)
     }

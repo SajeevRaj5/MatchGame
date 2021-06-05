@@ -12,7 +12,7 @@ protocol PresenterToViewCardProtocol: AnyObject {
     func openCard(at index: Int)
     func closeCards(at indexes: [Int])
     func remove(at indexes: [Int])
-    func updateTimer(hour: Int, minute: Int,second: Int)
+    func updateTimer(hour: Int, minute: Int, second: Int)
     func updateScore(to: Int)
 }
 

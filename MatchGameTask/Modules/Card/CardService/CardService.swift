@@ -10,7 +10,7 @@ import Foundation
 class CardService {
     static func getCards(pairCount: Int) -> [Card] {
         var createdCards = [Card]()
-        
+
         var count = 0
         while count < pairCount {
             count += 1
@@ -19,7 +19,7 @@ class CardService {
             let cardTwo = Card(title: title)
             createdCards += [cardOne, cardTwo]
         }
-        
+
         createdCards.shuffle()
         return createdCards
     }

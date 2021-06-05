@@ -59,6 +59,10 @@ extension CardListViewController: UICollectionViewDelegate {
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
+    func showTimeoutAlert(score: Int) {
+        AlertController.show(type: .timeOver(score: score))
+    }
+    
     func updateTimer(hour: Int, minute: Int, second: Int) {
         var timeString = "\(format(minute)):\(format(second))"
         if hour != 0 { timeString = "\(format(hour))" + timeString }

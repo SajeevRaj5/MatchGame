@@ -14,6 +14,7 @@ protocol PresenterToViewCardProtocol: AnyObject {
     func remove(at indexes: [Int])
     func updateTimer(hour: Int, minute: Int, second: Int)
     func updateScore(to: Int)
+    func showTimeoutAlert(score: Int)
 }
 
 protocol ViewToPresenterCardProtocol {

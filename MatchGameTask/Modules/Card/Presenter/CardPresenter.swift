@@ -39,11 +39,12 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     var firstSelectedCardIndex: Int?
     var gameTimer = Timer()
     var endTime = Date()
+    
     func setup() {
         getCards()
+        setEndTime()
         setUpTimer()
-        computeEndTime()
-        self.view?.updateScore(to: self.game.score)
+        view?.updateScore(to: game.score)
     }
 
     func handleSelectionOfCard(at index: Int) {
@@ -64,7 +65,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
 
     func restartGame() {
         game.score = 0
-        computeEndTime()
+        setEndTime()
         view?.displayCards(list: getCardsViewModel(cards: game.cards))
         view?.updateScore(to: game.score)
         timerUpdate()
@@ -78,7 +79,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
 extension CardPresenter {
 
     // MARK: - Game Time
-    func computeEndTime() {
+    func setEndTime() {
         endTime = Date().addingTimeInterval(TimeInterval(game.timeSeconds))
     }
 
@@ -93,10 +94,15 @@ extension CardPresenter {
         if time.hour > 0 && time.minute > 0 && time.second > 0 {
             view?.updateTimer(hour: time.hour, minute: time.minute, second: time.second)
         } else {
-
+            handleTimeOut()
         }
     }
-
+    
+    func handleTimeOut() {
+        gameTimer.invalidate()
+        view?.showTimeoutAlert(score: game.score)
+    }
+    
     // MARK: - Cards
 
     func getCards() {

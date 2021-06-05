@@ -21,6 +21,14 @@ class CardViewModel {
     }
 }
 
-final class CardPresenter {
+final class CardPresenter: ViewToPresenterCardProtocol {
+    var view: PresenterToViewCardProtocol?
     
+    func getCards() {
+        
+    }
+    
+    func handleSelectionOfCard(at indexPath: IndexPath) {
+        
+    }
 }

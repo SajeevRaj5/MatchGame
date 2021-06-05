@@ -19,6 +19,10 @@
 		13DCA05B266B513800F4AD5B /* CardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA05A266B513800F4AD5B /* CardProtocol.swift */; };
 		13DCA060266B516700F4AD5B /* CardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA05F266B516700F4AD5B /* CardPresenter.swift */; };
 		13DCA065266B521500F4AD5B /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA064266B521500F4AD5B /* CardListViewController.swift */; };
+		13DCA06A266B58C100F4AD5B /* CardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA069266B58C100F4AD5B /* CardRouter.swift */; };
+		13DCA06F266B58F000F4AD5B /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA06E266B58F000F4AD5B /* StoryboardExtension.swift */; };
+		13DCA074266B590200F4AD5B /* ResponderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA073266B590200F4AD5B /* ResponderExtension.swift */; };
+		13DCA079266B591200F4AD5B /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA078266B591200F4AD5B /* ViewControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		13DCA05A266B513800F4AD5B /* CardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardProtocol.swift; sourceTree = "<group>"; };
 		13DCA05F266B516700F4AD5B /* CardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresenter.swift; sourceTree = "<group>"; };
 		13DCA064266B521500F4AD5B /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
+		13DCA069266B58C100F4AD5B /* CardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardRouter.swift; sourceTree = "<group>"; };
+		13DCA06E266B58F000F4AD5B /* StoryboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardExtension.swift; sourceTree = "<group>"; };
+		13DCA073266B590200F4AD5B /* ResponderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponderExtension.swift; sourceTree = "<group>"; };
+		13DCA078266B591200F4AD5B /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +165,9 @@
 		13DCA04E266B4FE600F4AD5B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA06E266B58F000F4AD5B /* StoryboardExtension.swift */,
+				13DCA073266B590200F4AD5B /* ResponderExtension.swift */,
+				13DCA078266B591200F4AD5B /* ViewControllerExtension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -192,6 +203,7 @@
 		13DCA052266B502600F4AD5B /* Router */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA069266B58C100F4AD5B /* CardRouter.swift */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -346,8 +358,12 @@
 				13DCA01A266B4F8100F4AD5B /* AppDelegate.swift in Sources */,
 				13DCA01C266B4F8100F4AD5B /* SceneDelegate.swift in Sources */,
 				13DCA056266B50D800F4AD5B /* Card.swift in Sources */,
+				13DCA074266B590200F4AD5B /* ResponderExtension.swift in Sources */,
+				13DCA06F266B58F000F4AD5B /* StoryboardExtension.swift in Sources */,
 				13DCA060266B516700F4AD5B /* CardPresenter.swift in Sources */,
+				13DCA079266B591200F4AD5B /* ViewControllerExtension.swift in Sources */,
 				13DCA05B266B513800F4AD5B /* CardProtocol.swift in Sources */,
+				13DCA06A266B58C100F4AD5B /* CardRouter.swift in Sources */,
 				13DCA065266B521500F4AD5B /* CardListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

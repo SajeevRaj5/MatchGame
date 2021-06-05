@@ -25,7 +25,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     var view: PresenterToViewCardProtocol?
     
     func getCards() {
-        
+        let cards = CardService.getCards(pairCount: 8)
     }
     
     func handleSelectionOfCard(at indexPath: IndexPath) {

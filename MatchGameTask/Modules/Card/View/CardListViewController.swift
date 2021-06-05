@@ -9,13 +9,32 @@ import UIKit
 
 class CardListViewController: UIViewController {
     var presenter: ViewToPresenterCardProtocol?
+    
+    var dataSource: [CardViewModel]? {
+        didSet {
+            cardsCollectionView?.reloadData()
+        }
+    }
+    
+    @IBOutlet weak var cardsCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        presenter?.getCards()
     }
 
+}
+
+extension CardListViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        dataSource?.count ?? 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CardViewCell", for: indexPath) as! CardViewCell
+        return cell
+    }
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {

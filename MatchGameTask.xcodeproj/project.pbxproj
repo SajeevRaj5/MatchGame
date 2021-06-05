@@ -23,6 +23,8 @@
 		13DCA06F266B58F000F4AD5B /* StoryboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA06E266B58F000F4AD5B /* StoryboardExtension.swift */; };
 		13DCA074266B590200F4AD5B /* ResponderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA073266B590200F4AD5B /* ResponderExtension.swift */; };
 		13DCA079266B591200F4AD5B /* ViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA078266B591200F4AD5B /* ViewControllerExtension.swift */; };
+		13DCA07E266B5BAE00F4AD5B /* CardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA07D266B5BAE00F4AD5B /* CardViewCell.swift */; };
+		13DCA084266B5C3800F4AD5B /* CardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA083266B5C3800F4AD5B /* CardService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		13DCA06E266B58F000F4AD5B /* StoryboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardExtension.swift; sourceTree = "<group>"; };
 		13DCA073266B590200F4AD5B /* ResponderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponderExtension.swift; sourceTree = "<group>"; };
 		13DCA078266B591200F4AD5B /* ViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerExtension.swift; sourceTree = "<group>"; };
+		13DCA07D266B5BAE00F4AD5B /* CardViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewCell.swift; sourceTree = "<group>"; };
+		13DCA083266B5C3800F4AD5B /* CardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,7 @@
 		13DCA04F266B4FFA00F4AD5B /* Card */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA082266B5C2700F4AD5B /* CardService */,
 				13DCA054266B503B00F4AD5B /* View */,
 				13DCA053266B503100F4AD5B /* Entity */,
 				13DCA052266B502600F4AD5B /* Router */,
@@ -219,9 +224,18 @@
 		13DCA054266B503B00F4AD5B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA07D266B5BAE00F4AD5B /* CardViewCell.swift */,
 				13DCA064266B521500F4AD5B /* CardListViewController.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		13DCA082266B5C2700F4AD5B /* CardService */ = {
+			isa = PBXGroup;
+			children = (
+				13DCA083266B5C3800F4AD5B /* CardService.swift */,
+			);
+			path = CardService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,10 +370,12 @@
 			files = (
 				13DCA01E266B4F8100F4AD5B /* ViewController.swift in Sources */,
 				13DCA01A266B4F8100F4AD5B /* AppDelegate.swift in Sources */,
+				13DCA084266B5C3800F4AD5B /* CardService.swift in Sources */,
 				13DCA01C266B4F8100F4AD5B /* SceneDelegate.swift in Sources */,
 				13DCA056266B50D800F4AD5B /* Card.swift in Sources */,
 				13DCA074266B590200F4AD5B /* ResponderExtension.swift in Sources */,
 				13DCA06F266B58F000F4AD5B /* StoryboardExtension.swift in Sources */,
+				13DCA07E266B5BAE00F4AD5B /* CardViewCell.swift in Sources */,
 				13DCA060266B516700F4AD5B /* CardPresenter.swift in Sources */,
 				13DCA079266B591200F4AD5B /* ViewControllerExtension.swift in Sources */,
 				13DCA05B266B513800F4AD5B /* CardProtocol.swift in Sources */,

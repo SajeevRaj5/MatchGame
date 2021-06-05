@@ -17,7 +17,9 @@ class CardListViewController: UIViewController {
     }
     
     @IBOutlet weak var cardsCollectionView: UICollectionView!
-
+    @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -76,5 +78,4 @@ extension CardListViewController: PresenterToViewCardProtocol {
             cardCell?.close()
         }
     }
-
 }

@@ -32,8 +32,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VdZ-Ig-ZeT">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YEG-ZU-6Jl">
+                                <rect key="frame" x="0.0" y="44" width="414" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TLV-z3-ejP">
+                                        <rect key="frame" x="20" y="19.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BtO-Fj-V8e">
+                                        <rect key="frame" x="352" y="19.5" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="TLV-z3-ejP" firstAttribute="leading" secondItem="YEG-ZU-6Jl" secondAttribute="leading" constant="20" id="SII-91-Wut"/>
+                                    <constraint firstAttribute="height" constant="60" id="Snl-8t-6Je"/>
+                                    <constraint firstItem="TLV-z3-ejP" firstAttribute="centerY" secondItem="YEG-ZU-6Jl" secondAttribute="centerY" id="YKb-Sw-lrb"/>
+                                    <constraint firstItem="BtO-Fj-V8e" firstAttribute="centerY" secondItem="YEG-ZU-6Jl" secondAttribute="centerY" id="Zur-2e-RxV"/>
+                                    <constraint firstAttribute="trailing" secondItem="BtO-Fj-V8e" secondAttribute="trailing" constant="20" id="vF1-y2-axk"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VdZ-Ig-ZeT">
+                                <rect key="frame" x="0.0" y="104" width="414" height="758"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="5Yq-kg-tmy">
                                     <size key="itemSize" width="148" height="177"/>
@@ -96,14 +121,18 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="leading" secondItem="Yme-eY-YTK" secondAttribute="leading" id="5f4-T0-bsa"/>
-                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="Yme-eY-YTK" secondAttribute="bottom" id="CMG-ck-DNH"/>
+                            <constraint firstItem="YEG-ZU-6Jl" firstAttribute="top" secondItem="Yme-eY-YTK" secondAttribute="top" id="BWE-II-iKI"/>
+                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="bottom" secondItem="Yme-eY-YTK" secondAttribute="bottom" id="CMG-ck-DNH"/>
                             <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="trailing" secondItem="Yme-eY-YTK" secondAttribute="trailing" id="Cne-jG-l2y"/>
-                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="centerY" secondItem="BPT-oU-BmX" secondAttribute="centerY" id="YAm-oQ-epJ"/>
-                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="centerX" secondItem="BPT-oU-BmX" secondAttribute="centerX" id="jky-ZW-gxD"/>
+                            <constraint firstItem="YEG-ZU-6Jl" firstAttribute="leading" secondItem="Yme-eY-YTK" secondAttribute="leading" id="gVn-Dm-KO6"/>
+                            <constraint firstItem="VdZ-Ig-ZeT" firstAttribute="top" secondItem="YEG-ZU-6Jl" secondAttribute="bottom" id="kZR-KD-SdY"/>
+                            <constraint firstItem="Yme-eY-YTK" firstAttribute="trailing" secondItem="YEG-ZU-6Jl" secondAttribute="trailing" id="v4L-s0-dff"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cardsCollectionView" destination="VdZ-Ig-ZeT" id="8RE-ba-Jsa"/>
+                        <outlet property="scoreLabel" destination="BtO-Fj-V8e" id="4fi-Rd-0Mr"/>
+                        <outlet property="timerLabel" destination="TLV-z3-ejP" id="foo-Pv-Au6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f9b-kF-gpB" sceneMemberID="firstResponder"/>

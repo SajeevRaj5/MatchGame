@@ -14,13 +14,9 @@ class CardService {
         var count = 0
         while count < pairCount {
             count += 1
-            
-            let cardOne = Card()
-            let cardTwo = Card()
-            
-            cardOne.frontImageName = "Card\(count)"
-            cardTwo.frontImageName = "Card\(count)"
-
+            let title = "Card\(count)"
+            let cardOne = Card(title: title)
+            let cardTwo = Card(title: title)
             createdCards += [cardOne, cardTwo]
         }
         

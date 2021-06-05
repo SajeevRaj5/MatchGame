@@ -9,15 +9,15 @@ import Foundation
 
 protocol PresenterToViewCardProtocol: AnyObject {
     func displayCards(list: [CardViewModel])
-    func openCard(at indexPath: IndexPath)
-    func closeCards(at indexPaths: [IndexPath])
-    func remove(at indexPaths: [IndexPath])
+    func openCard(at index: Int)
+    func closeCards(at indexes: [Int])
+    func remove(at indexes: [Int])
 }
 
 protocol ViewToPresenterCardProtocol {
     var view: PresenterToViewCardProtocol? {get set}
     func getCards()
-    func handleSelectionOfCard(at indexPath: IndexPath)
+    func handleSelectionOfCard(at index: Int)
 }
 
 protocol PresenterToRouterCardProtocol {

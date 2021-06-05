@@ -51,31 +51,35 @@ extension CardListViewController: UICollectionViewDelegateFlowLayout {
 
 extension CardListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter?.handleSelectionOfCard(at: indexPath)
+        presenter?.handleSelectionOfCard(at: indexPath.row)
     }
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
+    
     func displayCards(list: [CardViewModel]) {
         dataSource = list
     }
     
-    func openCard(at indexPath: IndexPath) {
+    func openCard(at index: Int) {
+        let indexPath = IndexPath(row: index, section: 0)
         let cardCell = cardsCollectionView.cellForItem(at: indexPath) as? CardViewCell
         cardCell?.open()
     }
     
-    func closeCards(at indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
+    func closeCards(at indexes: [Int]) {
+        indexes.forEach { (index) in
+            let indexPath = IndexPath(row: index, section: 0)
             let cardCell = cardsCollectionView.cellForItem(at: indexPath) as? CardViewCell
             cardCell?.close()
         }
     }
     
-    func remove(at indexPaths: [IndexPath]) {
-        for indexPath in indexPaths {
+    func remove(at indexes: [Int]) {
+        indexes.forEach { (index) in
+            let indexPath = IndexPath(row: index, section: 0)
             let cardCell = cardsCollectionView.cellForItem(at: indexPath) as? CardViewCell
-            cardCell?.close()
+            cardCell?.remove()
         }
     }
 }

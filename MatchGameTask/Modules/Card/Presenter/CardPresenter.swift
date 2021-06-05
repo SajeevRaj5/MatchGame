@@ -7,87 +7,89 @@
 
 import UIKit
 
-class CardViewModel {
+struct GameViewModel {
+    var cards: [CardViewModel]?
+    var gameTime : Double = 60
+    var score : Int = 0
+}
+
+struct CardViewModel {
     var frontImage: UIImage?
     var backImage: UIImage?
     var indexPath: IndexPath?
-    let title: String
-    var isOpen: Bool = false
-    var isRemoved: Bool = false
     
     init(frontImageName: String) {
         frontImage = UIImage(named: frontImageName)
         backImage = UIImage(named: "backImage")
-        self.title = frontImageName
     }
+}
+
+class Game {
+    var cards = [Card]()
+    var backImageName = ""
+    var score = 0
+    var timeSeconds = 60
 }
 
 final class CardPresenter: ViewToPresenterCardProtocol {
     weak var view: PresenterToViewCardProtocol?
-    var cardViewModels: [CardViewModel]?
-    var firstSelectedCard: CardViewModel?
+    var gameViewModel = GameViewModel()
+    var game = Game()
+    var firstSelectedCardIndex: Int?
     
     func getCards() {
-        let cards = CardService.getCards(pairCount: 8)
-        let viewModels = cards.map{ CardViewModel(frontImageName: $0.frontImageName) }
-        self.cardViewModels = viewModels
+        game.cards = CardService.getCards(pairCount: 8)
+        let viewModels = game.cards.map{ CardViewModel(frontImageName: $0.frontImageName) }
+        gameViewModel.cards = viewModels
         view?.displayCards(list: viewModels)
     }
     
-    func handleSelectionOfCard(at indexPath: IndexPath) {
-        guard let allCards = cardViewModels else { return }
-        let selectedCard = allCards[indexPath.row]
-        
-        if cardViewModels?[indexPath.row].isRemoved == true {
-            return
-        }
+    func handleSelectionOfCard(at index: Int) {
+        guard game.cards[index].isRemoved == false else { return }
+        let selectedCard = game.cards[index]
         
         // keep the card open
-        view?.openCard(at: indexPath)
+        view?.openCard(at: index)
         
-        if firstSelectedCard != nil {
-            handleSecondCardSelection(selectedCard: selectedCard, indexPath: indexPath)
+        if firstSelectedCardIndex != nil {
+            handleSecondCardSelection(selectedCard: selectedCard, index: index)
         }
         else {
-            handleFirstCardSelection(selectedCard: selectedCard, indexPath: indexPath)
+            handleFirstCardSelection(selectedCard: selectedCard, index: index)
         }
     }
     
-    func handleFirstCardSelection(selectedCard: CardViewModel, indexPath: IndexPath) {
-        firstSelectedCard = selectedCard
-        firstSelectedCard?.indexPath = indexPath
+    func handleFirstCardSelection(selectedCard: Card, index: Int) {
+        firstSelectedCardIndex = index
+        game.cards[index].isOpen = true
+    }
+    
+    func handleSecondCardSelection(selectedCard: Card, index: Int) {
+        guard let firstSelectedCardIndex = firstSelectedCardIndex else { return }
+        if game.cards[firstSelectedCardIndex].title == selectedCard.title {
+            removeCards(currentSelectedCardIndex: index)
         
-        cardViewModels?[indexPath.row].indexPath = indexPath
-        cardViewModels?[indexPath.row].isOpen = true
-    }
-    
-    func handleSecondCardSelection(selectedCard: CardViewModel, indexPath: IndexPath) {
-        if firstSelectedCard?.title == selectedCard.title {
-            removeCards(currentSelectedCardIndexPath: indexPath)
-        }
-        else {
-            closeCards(currentSelectedCardIndexPath: indexPath)
+        } else {
+            closeCards(currentSelectedCardIndex: index)
         }
     }
     
-    func removeCards(currentSelectedCardIndexPath: IndexPath) {
+    func removeCards(currentSelectedCardIndex: Int) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            if let firstCardIndexPath = self.firstSelectedCard?.indexPath {
-                self.view?.remove(at: [firstCardIndexPath,currentSelectedCardIndexPath])
-                self.cardViewModels?[currentSelectedCardIndexPath.row].isRemoved = true
-                self.firstSelectedCard?.isRemoved = true
-                self.firstSelectedCard = nil
-            }
+            guard let firstSelectedCardIndex = self.firstSelectedCardIndex else { return }
+            self.view?.remove(at: [firstSelectedCardIndex,currentSelectedCardIndex])
+            self.game.cards[currentSelectedCardIndex].isRemoved = true
+            self.game.cards[firstSelectedCardIndex].isRemoved = true
+            self.firstSelectedCardIndex = nil
         }
     }
     
-    func closeCards(currentSelectedCardIndexPath: IndexPath) {
+    func closeCards(currentSelectedCardIndex: Int) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            if let firstCardIndexPath = self.firstSelectedCard?.indexPath {
-                self.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndexPath])
-                self.cardViewModels?[currentSelectedCardIndexPath.row].isOpen = false
-                self.firstSelectedCard = nil
-            }
+            guard let firstCardIndexPath = self.firstSelectedCardIndex else { return }
+            self.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndex])
+            self.game.cards[currentSelectedCardIndex].isOpen = false
+            self.firstSelectedCardIndex = nil
         }
     }
 }

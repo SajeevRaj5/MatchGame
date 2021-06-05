@@ -15,15 +15,8 @@ class CardViewCell: UICollectionViewCell {
     func configureCell(card: CardViewModel) {
         frontImageView.image = card.frontImage
         backImageView.image = card.backImage
-        
-        if card.isOpen {
-            frontImageView.alpha = 1
-            backImageView.alpha = 0
-        }
-        else {
-            frontImageView.alpha = 0
-            backImageView.alpha = 1
-        }
+        frontImageView.alpha = 0
+        backImageView.alpha = 1
     }
     
     func open() {

@@ -10,4 +10,12 @@ import Foundation
 class Card {
     var title = ""
     var frontImageName = ""
+    var isOpen = false
+    var isRemoved = false
+    
+    convenience init(title: String) {
+        self.init()
+        frontImageName = title
+        self.title = title
+    }
 }

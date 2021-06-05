@@ -91,7 +91,12 @@ extension CardPresenter {
     
     @objc func timerUpdate() {
         let time = Date().getTimeDiff(to : endTime)
-        view?.updateTimer(hour: time.hour, minute:time.minute,second:time.second)
+        if time.hour > 0 && time.minute > 0 && time.second > 0 {
+            view?.updateTimer(hour: time.hour, minute:time.minute,second:time.second)
+        }
+        else {
+            
+        }
     }
     
     // MARK: - Cards

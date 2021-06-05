@@ -15,6 +15,10 @@
 		13DCA026266B4F8300F4AD5B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13DCA024266B4F8300F4AD5B /* LaunchScreen.storyboard */; };
 		13DCA031266B4F8400F4AD5B /* MatchGameTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA030266B4F8400F4AD5B /* MatchGameTaskTests.swift */; };
 		13DCA03C266B4F8400F4AD5B /* MatchGameTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA03B266B4F8400F4AD5B /* MatchGameTaskUITests.swift */; };
+		13DCA056266B50D800F4AD5B /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA055266B50D800F4AD5B /* Card.swift */; };
+		13DCA05B266B513800F4AD5B /* CardProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA05A266B513800F4AD5B /* CardProtocol.swift */; };
+		13DCA060266B516700F4AD5B /* CardPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA05F266B516700F4AD5B /* CardPresenter.swift */; };
+		13DCA065266B521500F4AD5B /* CardListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13DCA064266B521500F4AD5B /* CardListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		13DCA037266B4F8400F4AD5B /* MatchGameTaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MatchGameTaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		13DCA03B266B4F8400F4AD5B /* MatchGameTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchGameTaskUITests.swift; sourceTree = "<group>"; };
 		13DCA03D266B4F8400F4AD5B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13DCA055266B50D800F4AD5B /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		13DCA05A266B513800F4AD5B /* CardProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardProtocol.swift; sourceTree = "<group>"; };
+		13DCA05F266B516700F4AD5B /* CardPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardPresenter.swift; sourceTree = "<group>"; };
+		13DCA064266B521500F4AD5B /* CardListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +176,7 @@
 		13DCA050266B500100F4AD5B /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA05A266B513800F4AD5B /* CardProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -175,6 +184,7 @@
 		13DCA051266B500800F4AD5B /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA05F266B516700F4AD5B /* CardPresenter.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -189,6 +199,7 @@
 		13DCA053266B503100F4AD5B /* Entity */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA055266B50D800F4AD5B /* Card.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -196,6 +207,7 @@
 		13DCA054266B503B00F4AD5B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				13DCA064266B521500F4AD5B /* CardListViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -333,6 +345,10 @@
 				13DCA01E266B4F8100F4AD5B /* ViewController.swift in Sources */,
 				13DCA01A266B4F8100F4AD5B /* AppDelegate.swift in Sources */,
 				13DCA01C266B4F8100F4AD5B /* SceneDelegate.swift in Sources */,
+				13DCA056266B50D800F4AD5B /* Card.swift in Sources */,
+				13DCA060266B516700F4AD5B /* CardPresenter.swift in Sources */,
+				13DCA05B266B513800F4AD5B /* CardProtocol.swift in Sources */,
+				13DCA065266B521500F4AD5B /* CardListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

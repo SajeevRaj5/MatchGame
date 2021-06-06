@@ -66,6 +66,20 @@ class CardPresenterTests: XCTestCase {
         XCTAssert(UserDefaults.standard.value(forKey: "UserSelectedTimeOut") as? Int == 2, "Time should be saved locally")
     }
     
+    func testHandleFirstCardSelection() {
+        let index = 1
+        presenter.startGameWith(time: 1)
+        presenter.handleSelectionOfCard(at: index)
+        XCTAssert(presenter.game.cards[index].isOpen, "Card should be opened")
+    }
+    
+    func testHandleSecondCardSelection() {
+        let index = 2
+        presenter.startGameWith(time: 1)
+        presenter.firstSelectedCardIndex = 1
+        presenter.handleSelectionOfCard(at: index)
+    }
+    
     override func tearDown() {
         view = nil
         presenter = nil

@@ -26,12 +26,12 @@ class CardPresenterTests: XCTestCase {
     
     func testDisplayCards() {
         presenter.setupNewGame()
-        XCTAssert(view.cards.count == CardService.getCards(pairCount: 8).count, "Should parse cards")
+        XCTAssert(view.cards.count > 0, "Should have cards")
     }
     
     func testHandleSelectionOfCard() {
-        presenter.game.cards = CardService.getCards(pairCount: 8)
-        view.cards = CardService.getCards(pairCount: 8).map{ CardViewModel(frontImageName: $0.frontImageName) }
+        presenter.game.cards = MockCardData.cards
+        view.cards = MockCardData.cards.map{ CardViewModel(frontImageName: $0.frontImageName) }
         presenter.handleSelectionOfCard(at: 1)
         XCTAssert(view.didOpenCard, "Should Open Card")
     }
@@ -40,7 +40,7 @@ class CardPresenterTests: XCTestCase {
         presenter.setupNewGame()
         XCTAssert(view.score == 0, "Score should be 0 at start")
         XCTAssert(presenter.firstSelectedCardIndex == nil, "There should be not selection at game start")
-        XCTAssert(view.cards.count == CardService.getCards(pairCount: 8).count, "Should parse cards")
+        XCTAssert(view.cards.count > 0, "Should have cards")
     }
     
     func testRestartGame() {
@@ -71,13 +71,39 @@ class CardPresenterTests: XCTestCase {
         presenter.startGameWith(time: 1)
         presenter.handleSelectionOfCard(at: index)
         XCTAssert(presenter.game.cards[index].isOpen, "Card should be opened")
+        XCTAssert(view.didOpenCard, "Should Open Card")
     }
     
-    func testHandleSecondCardSelection() {
-        let index = 2
-        presenter.startGameWith(time: 1)
-        presenter.firstSelectedCardIndex = 1
-        presenter.handleSelectionOfCard(at: index)
+    func testRemoveCards() {
+        let cards = MockCardData.cards
+        presenter.game.cards = cards
+        presenter.firstSelectedCardIndex = 0
+        presenter.handleSelectionOfCard(at: 8)
+        let mainQueueExpectation = expectation(description: "switch to main queue")
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
+            XCTAssert(self.presenter.game.cards[0].isRemoved, "Card should be removed")
+            XCTAssert(self.presenter.game.cards[8].isRemoved, "Card should be removed")
+            XCTAssert(self.view.didRemoveCards, "Card should be removed")
+            mainQueueExpectation.fulfill()
+        }
+        wait(for: [mainQueueExpectation], timeout: 5)
+
+    }
+    
+    func testCloseCards() {
+        let cards = MockCardData.cards
+        presenter.game.cards = cards
+        presenter.firstSelectedCardIndex = 0
+        presenter.handleSelectionOfCard(at: 1)
+        let mainQueueExpectation = expectation(description: "switch to main queue")
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.6) {
+            XCTAssert(self.presenter.game.cards[0].isOpen == false, "Card should be closed")
+            XCTAssert(self.presenter.game.cards[7].isOpen == false, "Card should be closed")
+            XCTAssert(self.view.didCloseCards == true, "Card should be closed")
+            mainQueueExpectation.fulfill()
+        }
+        wait(for: [mainQueueExpectation], timeout: 5)
     }
     
     override func tearDown() {
@@ -93,7 +119,9 @@ extension CardPresenterTests {
         var didOpenCard = false
         var didUpdateTimer = false
         var didShowedTimeOutAlert = false
-
+        var didRemoveCards = false
+        var didCloseCards = false
+        
         var cards = [CardViewModel]()
         var score: Int?
         
@@ -106,11 +134,11 @@ extension CardPresenterTests {
         }
         
         func closeCards(at indexes: [Int]) {
-            
+            didCloseCards = true
         }
         
         func remove(at indexes: [Int]) {
-            
+            didRemoveCards = true
         }
         
         func updateTimer(hour: Int, minute: Int, second: Int) {

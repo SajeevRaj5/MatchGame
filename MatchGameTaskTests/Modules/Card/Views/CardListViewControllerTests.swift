@@ -57,10 +57,6 @@ class CardListViewControllerTests: XCTestCase {
         viewController.viewDidLoad()
         XCTAssert(presenter.didCallConfigureGame, "Should call configure game")
     }
-    
-    func testStartNewGame() {
-        
-    }
 }
 
 extension CardListViewControllerTests {
@@ -69,20 +65,13 @@ extension CardListViewControllerTests {
         
         var didCallConfigureGame = false
                 
-        func setupNewGame() {
-        }
+        func setupNewGame() {}
         
-        func handleSelectionOfCard(at index: Int) {
-            
-        }
+        func handleSelectionOfCard(at index: Int) {  }
         
-        func restartGame() {
-            
-        }
+        func restartGame() {}
         
-        func startGameWith(time: Int) {
-            
-        }
+        func startGameWith(time: Int) {}
         
         func configureGame() {
             didCallConfigureGame = true

@@ -159,6 +159,7 @@ extension CardPresenter {
             guard let firstCardIndexPath = self.firstSelectedCardIndex else { return }
             self.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndex])
             self.game.cards[currentSelectedCardIndex].isOpen = false
+            self.game.cards[firstCardIndexPath].isOpen = false
             self.firstSelectedCardIndex = nil
 
             self.game.score = self.computeScore(isSuccess: false, at: self.game.score)

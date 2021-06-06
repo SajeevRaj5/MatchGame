@@ -51,6 +51,7 @@ class AlertController {
         textField.placeholder = "\(defaultTime)" + " (in minutes)"
         textField.keyboardType = .numberPad
         textField.addDoneButtonOnKeyboard()
+        textField.accessibilityIdentifier = "DefaultTimeTextField"
       }
     default: break
     }

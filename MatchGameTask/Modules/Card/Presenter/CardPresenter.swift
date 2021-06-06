@@ -32,6 +32,9 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     var gameTimer: Timer?
     var endTime = Date()
     
+    private let pairCount = 8
+    private var matchedCardsCounter = 0
+    
     func configureGame() {
         let selectedTime = UserDefaults.standard.value(forKey: "UserSelectedTimeOut")
         if let selectedTimeValue = selectedTime as? Int {
@@ -44,7 +47,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     
     // start new game with shuffled cards
     func setupNewGame() {
-        game.cards = CardService.getCards(pairCount: 8)
+        game.cards = CardService.getCards(pairCount: pairCount)
         startGame(cards: game.cards)
         setUpTimer()
     }
@@ -150,8 +153,17 @@ extension CardPresenter {
             self.game.cards[currentSelectedCardIndex].isRemoved = true
             self.game.cards[firstSelectedCardIndex].isRemoved = true
             self.firstSelectedCardIndex = nil
-
+            self.matchedCardsCounter += 1
+            
+            self.checkGameCompletion(cardCounter: self.matchedCardsCounter)
         }
+    }
+    
+    private func checkGameCompletion(cardCounter: Int) {
+        guard cardCounter == pairCount else { return }
+        let time = Date().getTimeDiff(to: endTime)
+        view?.showGameCompletionAlert(score: game.score, remainingTime: time)
+        gameTimer?.invalidate()
     }
 
     private func closeCards(currentSelectedCardIndex: Int) {

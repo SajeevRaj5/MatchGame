@@ -23,6 +23,8 @@ class CardListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Match Game"
+        
         presenter?.configureGame()
     }
 
@@ -60,6 +62,15 @@ extension CardListViewController: UICollectionViewDelegate {
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
+    func showGameCompletionAlert(score: Int, remainingTime: (Int, Int, Int)) {
+        var timeString = "\(format(remainingTime.1)):\(format(remainingTime.2))"
+        if remainingTime.0 != 0 { timeString = "\(format(remainingTime.0))" + timeString }
+        
+        AlertController.show(type: .gameWon(score: score, remainingTime: timeString)) { [weak self] (text) in
+            self?.presenter?.setupNewGame()
+        }
+    }
+    
     func showTimerSettingAlert(defaultTime: Int) {
         AlertController.show(type: .startGame(defaultTime: defaultTime)) { [weak self] text in
             guard let time = text else { return }

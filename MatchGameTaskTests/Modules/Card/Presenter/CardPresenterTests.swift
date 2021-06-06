@@ -156,5 +156,8 @@ extension CardPresenterTests {
         func showTimerSettingAlert(defaultTime: Int) {
             didShowTimerSettingAlert = true
         }
+        
+        func showGameCompletionAlert(score: Int, remainingTime: (Int, Int, Int)) {
+        }
     }
 }

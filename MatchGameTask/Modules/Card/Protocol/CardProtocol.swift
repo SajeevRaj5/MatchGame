@@ -16,6 +16,7 @@ protocol PresenterToViewCardProtocol: AnyObject {
     func updateScore(to: Int)
     func showTimeoutAlert(score: Int)
     func showTimerSettingAlert(defaultTime: Int)
+    func showGameCompletionAlert(score: Int, remainingTime: (Int, Int, Int))
 }
 
 protocol ViewToPresenterCardProtocol {

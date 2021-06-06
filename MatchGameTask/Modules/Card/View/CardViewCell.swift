@@ -20,18 +20,21 @@ class CardViewCell: UICollectionViewCell {
         close(duration: 0)
     }
 
+    // open card
     func open(duration: TimeInterval = 0.3) {
         backImageView.alpha = 0
         frontImageView.alpha = 1
         UIView.transition(from: backImageView, to: frontImageView, duration: duration, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
     }
 
+    // close/ flip down card as match was not found
     func close(duration: TimeInterval = 0.3) {
         self.backImageView.alpha = 1
         self.frontImageView.alpha = 0
         UIView.transition(from: self.frontImageView, to: self.backImageView, duration: duration, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
     }
 
+    // remove card as match was founc
     func remove() {
         backImageView.alpha = 0
         UIView.animate(withDuration: 0.3, delay: 0.5, options: .curveEaseOut, animations: {

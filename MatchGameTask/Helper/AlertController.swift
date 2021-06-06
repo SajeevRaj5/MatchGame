@@ -18,7 +18,7 @@ class AlertController {
 
     var title: String {
       switch self {
-      case .startGame: return "Set a time and start game"
+      case .startGame: return "Set a time (in minutes) and start game"
       case .timeOver: return "Game over"
       case .gameWon: return "You won the game"
       }
@@ -48,7 +48,7 @@ class AlertController {
     switch type {
     case .startGame(let defaultTime):
       alertController.addTextField { textField in
-        textField.placeholder = "\(defaultTime)" + " (in minutes)"
+        textField.text = "\(defaultTime)"
         textField.keyboardType = .numberPad
         textField.addDoneButtonOnKeyboard()
         textField.accessibilityIdentifier = "DefaultTimeTextField"

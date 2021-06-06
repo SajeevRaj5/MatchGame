@@ -8,6 +8,8 @@
 import Foundation
 
 class CardService {
+    
+    // get cards 
     static func getCards(pairCount: Int) -> [Card] {
         var createdCards = [Card]()
 

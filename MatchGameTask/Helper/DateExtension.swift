@@ -9,6 +9,7 @@ import UIKit
 
 extension Date {
 
+    // get time difference in hours, minutes and seconds
    func getTimeDiff(to: Date = Date()) -> (hour: Int, minute: Int, second: Int) {
        let difference = Calendar.current.dateComponents([.hour, .minute, .second], from: self, to: to)
        return ( getAbsoluteTime(difference.hour), getAbsoluteTime(difference.minute), getAbsoluteTime(difference.second))

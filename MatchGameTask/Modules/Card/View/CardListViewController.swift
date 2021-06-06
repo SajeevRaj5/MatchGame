@@ -34,6 +34,7 @@ class CardListViewController: UIViewController {
 
 }
 
+// Collection View DataSource
 extension CardListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         dataSource?.count ?? 0
@@ -48,6 +49,7 @@ extension CardListViewController: UICollectionViewDataSource {
     }
 }
 
+// Collection View FlowLayout
 extension CardListViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let count: CGFloat = 4
@@ -55,6 +57,7 @@ extension CardListViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// Collection View Delegate
 extension CardListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter?.handleSelectionOfCard(at: indexPath.row)
@@ -62,6 +65,8 @@ extension CardListViewController: UICollectionViewDelegate {
 }
 
 extension CardListViewController: PresenterToViewCardProtocol {
+    
+    // show alert on game won
     func showGameCompletionAlert(score: Int, remainingTime: (Int, Int, Int)) {
         var timeString = "\(format(remainingTime.1)):\(format(remainingTime.2))"
         if remainingTime.0 != 0 { timeString = "\(format(remainingTime.0))" + timeString }
@@ -71,6 +76,7 @@ extension CardListViewController: PresenterToViewCardProtocol {
         }
     }
     
+    // show alert at start of game to set timeout
     func showTimerSettingAlert(defaultTime: Int) {
         AlertController.show(type: .startGame(defaultTime: defaultTime)) { [weak self] text in
             guard let time = text else { return }
@@ -78,12 +84,14 @@ extension CardListViewController: PresenterToViewCardProtocol {
         }
     }
     
+    // show alert on timeout
     func showTimeoutAlert(score: Int) {
         AlertController.show(type: .timeOver(score: score)) { [weak self] _ in
             self?.presenter?.setupNewGame()
         }
     }
     
+    // update timer label when time changes
     func updateTimer(hour: Int, minute: Int, second: Int) {
         var timeString = "\(format(minute)):\(format(second))"
         if hour != 0 { timeString = "\(format(hour))" + timeString }
@@ -94,6 +102,7 @@ extension CardListViewController: PresenterToViewCardProtocol {
         String(format: "%02ld", time)
     }
 
+    // update score label
     func updateScore(to score: Int) {
         scoreLabel.text = "Score: \(score)"
     }
@@ -102,12 +111,14 @@ extension CardListViewController: PresenterToViewCardProtocol {
         dataSource = list
     }
 
+    // open card when clicked
     func openCard(at index: Int) {
         let indexPath = IndexPath(row: index, section: 0)
         let cardCell = cardsCollectionView.cellForItem(at: indexPath) as? CardViewCell
         cardCell?.open()
     }
 
+    // close cards when no match found
     func closeCards(at indexes: [Int]) {
         indexes.forEach { (index) in
             let indexPath = IndexPath(row: index, section: 0)
@@ -116,6 +127,7 @@ extension CardListViewController: PresenterToViewCardProtocol {
         }
     }
 
+    // remove/ hide card when match found
     func remove(at indexes: [Int]) {
         indexes.forEach { (index) in
             let indexPath = IndexPath(row: index, section: 0)

@@ -35,6 +35,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     private let pairCount = 8
     private var matchedCardsCounter = 0
     
+    // configure game when started for first time
     func configureGame() {
         let selectedTime = UserDefaults.standard.value(forKey: "UserSelectedTimeOut")
         if let selectedTimeValue = selectedTime as? Int {
@@ -52,12 +53,14 @@ final class CardPresenter: ViewToPresenterCardProtocol {
         setUpTimer()
     }
     
+    // start game with selected timeout
     func startGameWith(time: Int) {
         saveSelectedTime(time: time)
         game.timeSeconds = time * 60
         setupNewGame()
     }
 
+    // handle selection of card when clicked
     func handleSelectionOfCard(at index: Int) {
         guard game.cards[index].isRemoved == false,
               index != firstSelectedCardIndex else { return }
@@ -79,6 +82,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
         startGame(cards: game.cards)
     }
 
+    // start game with provided card set
     private func startGame(cards: [Card]) {
         game.score = 0
         firstSelectedCardIndex = nil
@@ -88,6 +92,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
         timerUpdate()
     }
     
+    // save set time when game starts
     private func saveSelectedTime(time: Int) {
         UserDefaults.standard.setValue(time, forKey: "UserSelectedTimeOut")
     }
@@ -110,6 +115,7 @@ extension CardPresenter {
         gameTimer?.fire()
     }
 
+    // update timer
     @objc func timerUpdate() {
         let time = Date().getTimeDiff(to: endTime)
         view?.updateTimer(hour: time.hour, minute: time.minute, second: time.second)
@@ -118,6 +124,7 @@ extension CardPresenter {
         }
     }
     
+    // invalidate timer and show alert when timout happens
     private func handleTimeOut() {
         gameTimer?.invalidate()
         view?.showTimeoutAlert(score: game.score)
@@ -129,11 +136,13 @@ extension CardPresenter {
        game.cards.map { CardViewModel(frontImageName: $0.frontImageName) }
     }
 
+    // handle selection of card one
     private func handleFirstCardSelection(selectedCard: Card, index: Int) {
         firstSelectedCardIndex = index
         game.cards[index].isOpen = true
     }
 
+    // handle selection of card two
     private func handleSecondCardSelection(selectedCard: Card, index: Int) {
         guard let firstSelectedCardIndex = firstSelectedCardIndex else { return }
         if game.cards[firstSelectedCardIndex].title == selectedCard.title {
@@ -144,21 +153,24 @@ extension CardPresenter {
         }
     }
 
+    // remove cards as match was found
     private func removeCards(currentSelectedCardIndex: Int) {
         game.score = computeScore(isSuccess: true, at: game.score)
         view?.updateScore(to: game.score)
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            guard let firstSelectedCardIndex = self.firstSelectedCardIndex else { return }
-            self.view?.remove(at: [firstSelectedCardIndex, currentSelectedCardIndex])
-            self.game.cards[currentSelectedCardIndex].isRemoved = true
-            self.game.cards[firstSelectedCardIndex].isRemoved = true
-            self.firstSelectedCardIndex = nil
-            self.matchedCardsCounter += 1
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+                guard let welf = self,
+                  let firstSelectedCardIndex = welf.firstSelectedCardIndex else { return }
+            welf.view?.remove(at: [firstSelectedCardIndex, currentSelectedCardIndex])
+            welf.game.cards[currentSelectedCardIndex].isRemoved = true
+            welf.game.cards[firstSelectedCardIndex].isRemoved = true
+            welf.firstSelectedCardIndex = nil
+            welf.matchedCardsCounter += 1
             
-            self.checkGameCompletion(cardCounter: self.matchedCardsCounter)
+            welf.checkGameCompletion(cardCounter: welf.matchedCardsCounter)
         }
     }
     
+    // check if all matches are found and show alert accordingly
     private func checkGameCompletion(cardCounter: Int) {
         guard cardCounter == pairCount else { return }
         let time = Date().getTimeDiff(to: endTime)
@@ -166,16 +178,18 @@ extension CardPresenter {
         gameTimer?.invalidate()
     }
 
+    // close cards as match was not found
     private func closeCards(currentSelectedCardIndex: Int) {
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
-            guard let firstCardIndexPath = self.firstSelectedCardIndex else { return }
-            self.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndex])
-            self.game.cards[currentSelectedCardIndex].isOpen = false
-            self.game.cards[firstCardIndexPath].isOpen = false
-            self.firstSelectedCardIndex = nil
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) { [weak self] in
+            guard let welf = self,
+                  let firstCardIndexPath = welf.firstSelectedCardIndex else { return }
+            welf.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndex])
+            welf.game.cards[currentSelectedCardIndex].isOpen = false
+            welf.game.cards[firstCardIndexPath].isOpen = false
+            welf.firstSelectedCardIndex = nil
 
-            self.game.score = self.computeScore(isSuccess: false, at: self.game.score)
-            self.view?.updateScore(to: self.game.score)
+            welf.game.score = welf.computeScore(isSuccess: false, at: welf.game.score)
+            welf.view?.updateScore(to: welf.game.score)
         }
     }
 

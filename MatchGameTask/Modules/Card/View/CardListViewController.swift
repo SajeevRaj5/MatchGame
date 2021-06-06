@@ -22,7 +22,7 @@ class CardListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.setup()
+        presenter?.setupNewGame()
     }
 
     @IBAction func restartButtonAction(sender: UIButton) {
@@ -60,7 +60,9 @@ extension CardListViewController: UICollectionViewDelegate {
 
 extension CardListViewController: PresenterToViewCardProtocol {
     func showTimeoutAlert(score: Int) {
-        AlertController.show(type: .timeOver(score: score))
+        AlertController.show(type: .timeOver(score: score)) { [weak self] _ in
+            self?.presenter?.setupNewGame()
+        }
     }
     
     func updateTimer(hour: Int, minute: Int, second: Int) {

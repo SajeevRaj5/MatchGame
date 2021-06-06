@@ -36,7 +36,7 @@ class AlertController {
     var okButtonTitle: String {
       switch self {
       case .startGame: return "Start Game"
-      case .timeOver, .gameWon: return "Restart game"
+      case .timeOver, .gameWon: return "Start new game"
       }
     }
   }

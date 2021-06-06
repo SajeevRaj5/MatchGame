@@ -16,7 +16,6 @@ struct GameViewModel {
 struct CardViewModel {
     var frontImage: UIImage?
     var backImage: UIImage?
-    var indexPath: IndexPath?
 
     init(frontImageName: String) {
         frontImage = UIImage(named: frontImageName)
@@ -37,14 +36,13 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     var gameViewModel = GameViewModel()
     var game = Game()
     var firstSelectedCardIndex: Int?
-    var gameTimer = Timer()
+    var gameTimer: Timer?
     var endTime = Date()
     
-    func setup() {
+    func setupNewGame() {
         getCards()
-        setEndTime()
+        restartGame()
         setUpTimer()
-        view?.updateScore(to: game.score)
     }
 
     func handleSelectionOfCard(at index: Int) {
@@ -65,6 +63,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
 
     func restartGame() {
         game.score = 0
+        firstSelectedCardIndex = nil
         setEndTime()
         view?.displayCards(list: getCardsViewModel(cards: game.cards))
         view?.updateScore(to: game.score)
@@ -72,7 +71,7 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     }
 
     deinit {
-        gameTimer.invalidate()
+        gameTimer?.invalidate()
     }
 }
 
@@ -86,20 +85,19 @@ extension CardPresenter {
     func setUpTimer() {
         // set and start timer
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: true)
-        gameTimer.fire()
+        gameTimer?.fire()
     }
 
     @objc func timerUpdate() {
         let time = Date().getTimeDiff(to: endTime)
-        if time.hour > 0 && time.minute > 0 && time.second > 0 {
-            view?.updateTimer(hour: time.hour, minute: time.minute, second: time.second)
-        } else {
+        view?.updateTimer(hour: time.hour, minute: time.minute, second: time.second)
+        if time.hour == 0 && time.minute == 0 && time.second == 0 {
             handleTimeOut()
         }
     }
     
     func handleTimeOut() {
-        gameTimer.invalidate()
+        gameTimer?.invalidate()
         view?.showTimeoutAlert(score: game.score)
     }
     

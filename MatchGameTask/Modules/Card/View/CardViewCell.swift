@@ -15,20 +15,21 @@ class CardViewCell: UICollectionViewCell {
     func configureCell(card: CardViewModel) {
         frontImageView.image = card.frontImage
         backImageView.image = card.backImage
-        frontImageView.alpha = 0
-        backImageView.alpha = 1
-    }
-
-    func open() {
-        backImageView.alpha = 0
-        frontImageView.alpha = 1
-        UIView.transition(from: backImageView, to: frontImageView, duration: 0.3, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
-    }
-
-    func close() {
         self.backImageView.alpha = 1
         self.frontImageView.alpha = 0
-        UIView.transition(from: self.frontImageView, to: self.backImageView, duration: 0.3, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
+        close(duration: 0)
+    }
+
+    func open(duration: TimeInterval = 0.3) {
+        backImageView.alpha = 0
+        frontImageView.alpha = 1
+        UIView.transition(from: backImageView, to: frontImageView, duration: duration, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
+    }
+
+    func close(duration: TimeInterval = 0.3) {
+        self.backImageView.alpha = 1
+        self.frontImageView.alpha = 0
+        UIView.transition(from: self.frontImageView, to: self.backImageView, duration: duration, options: [.showHideTransitionViews, .transitionFlipFromLeft], completion: nil)
     }
 
     func remove() {

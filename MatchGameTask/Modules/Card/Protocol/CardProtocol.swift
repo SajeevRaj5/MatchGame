@@ -19,7 +19,7 @@ protocol PresenterToViewCardProtocol: AnyObject {
 
 protocol ViewToPresenterCardProtocol {
     var view: PresenterToViewCardProtocol? {get set}
-    func setup()
+    func setupNewGame()
     func handleSelectionOfCard(at index: Int)
     func restartGame()
 }

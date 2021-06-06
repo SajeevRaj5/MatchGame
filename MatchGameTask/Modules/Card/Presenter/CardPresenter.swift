@@ -23,13 +23,6 @@ struct CardViewModel {
     }
 }
 
-class Game {
-    var cards = [Card]()
-    var backImageName = ""
-    var score = 0
-    var timeSeconds = 60
-}
-
 final class CardPresenter: ViewToPresenterCardProtocol {
 
     weak var view: PresenterToViewCardProtocol?
@@ -39,10 +32,27 @@ final class CardPresenter: ViewToPresenterCardProtocol {
     var gameTimer: Timer?
     var endTime = Date()
     
+    func configureGame() {
+        let selectedTime = UserDefaults.standard.value(forKey: "UserSelectedTimeOut")
+        if let selectedTimeValue = selectedTime as? Int {
+            view?.showTimerSettingAlert(defaultTime: selectedTimeValue)
+        }
+        else {
+            view?.showTimerSettingAlert(defaultTime: 1)
+        }
+    }
+    
+    // start new game with shuffled cards
     func setupNewGame() {
-        getCards()
-        restartGame()
+        game.cards = CardService.getCards(pairCount: 8)
+        startGame(cards: game.cards)
         setUpTimer()
+    }
+    
+    func startGameWith(time: Int) {
+        saveSelectedTime(time: time)
+        game.timeSeconds = time * 60
+        setupNewGame()
     }
 
     func handleSelectionOfCard(at index: Int) {
@@ -60,14 +70,23 @@ final class CardPresenter: ViewToPresenterCardProtocol {
             handleFirstCardSelection(selectedCard: selectedCard, index: index)
         }
     }
-
+    
+    // restart game with previous set of cards, without shuffling
     func restartGame() {
+        startGame(cards: game.cards)
+    }
+
+    private func startGame(cards: [Card]) {
         game.score = 0
         firstSelectedCardIndex = nil
         setEndTime()
-        view?.displayCards(list: getCardsViewModel(cards: game.cards))
+        view?.displayCards(list: getCardsViewModel(cards: cards))
         view?.updateScore(to: game.score)
         timerUpdate()
+    }
+    
+    private func saveSelectedTime(time: Int) {
+        UserDefaults.standard.setValue(time, forKey: "UserSelectedTimeOut")
     }
 
     deinit {
@@ -78,11 +97,11 @@ final class CardPresenter: ViewToPresenterCardProtocol {
 extension CardPresenter {
 
     // MARK: - Game Time
-    func setEndTime() {
+    private func setEndTime() {
         endTime = Date().addingTimeInterval(TimeInterval(game.timeSeconds))
     }
 
-    func setUpTimer() {
+    private func setUpTimer() {
         // set and start timer
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerUpdate), userInfo: nil, repeats: true)
         gameTimer?.fire()
@@ -96,30 +115,23 @@ extension CardPresenter {
         }
     }
     
-    func handleTimeOut() {
+    private func handleTimeOut() {
         gameTimer?.invalidate()
         view?.showTimeoutAlert(score: game.score)
     }
     
     // MARK: - Cards
 
-    func getCards() {
-        game.cards = CardService.getCards(pairCount: 8)
-        let viewModels = getCardsViewModel(cards: game.cards)
-        gameViewModel.cards = viewModels
-        view?.displayCards(list: viewModels)
-    }
-
-    func getCardsViewModel(cards: [Card]) -> [CardViewModel] {
+    private func getCardsViewModel(cards: [Card]) -> [CardViewModel] {
        game.cards.map { CardViewModel(frontImageName: $0.frontImageName) }
     }
 
-    func handleFirstCardSelection(selectedCard: Card, index: Int) {
+    private func handleFirstCardSelection(selectedCard: Card, index: Int) {
         firstSelectedCardIndex = index
         game.cards[index].isOpen = true
     }
 
-    func handleSecondCardSelection(selectedCard: Card, index: Int) {
+    private func handleSecondCardSelection(selectedCard: Card, index: Int) {
         guard let firstSelectedCardIndex = firstSelectedCardIndex else { return }
         if game.cards[firstSelectedCardIndex].title == selectedCard.title {
             removeCards(currentSelectedCardIndex: index)
@@ -129,7 +141,7 @@ extension CardPresenter {
         }
     }
 
-    func removeCards(currentSelectedCardIndex: Int) {
+    private func removeCards(currentSelectedCardIndex: Int) {
         game.score = computeScore(isSuccess: true, at: game.score)
         view?.updateScore(to: game.score)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
@@ -142,7 +154,7 @@ extension CardPresenter {
         }
     }
 
-    func closeCards(currentSelectedCardIndex: Int) {
+    private func closeCards(currentSelectedCardIndex: Int) {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.5) {
             guard let firstCardIndexPath = self.firstSelectedCardIndex else { return }
             self.view?.closeCards(at: [firstCardIndexPath, currentSelectedCardIndex])
@@ -156,7 +168,7 @@ extension CardPresenter {
 
 // MARK: - Score
 
-    func computeScore(isSuccess: Bool, at currentScore: Int) -> Int {
+    private func computeScore(isSuccess: Bool, at currentScore: Int) -> Int {
         let computedScore = isSuccess ? currentScore + 5 :  currentScore - 2
         return max(0, computedScore)
     }

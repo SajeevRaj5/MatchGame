@@ -24,3 +24,6 @@ Swift 5
 
 ## IDE
 Xcode 12.4
+
+## Notes
+Interactor is not added in the project as the cards are fetched locally
